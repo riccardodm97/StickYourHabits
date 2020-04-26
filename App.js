@@ -1,126 +1,67 @@
-import React, { useState, useEffect } from 'react'
-import { View, Text, TextInput, Button, StyleSheet, FlatList } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage';
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Icons from 'react-native-vector-icons/FontAwesome';
+import Calendar from './src/scenes/CalendarPage/index';
+import Settings from './src/scenes/SettingsPage/index';
+import Prog  from './src/scenes/ProgPage/index';
+import Habits  from './src/scenes/HabitsPage/index';
 
 
 
-const home = ({ navigation }) => {
-
-    const [itemList, setItemList] = useState([])
-    const [item, setItem] = useState('')
+const Tab = createBottomTabNavigator();
 
 
-    function handleTextChange(itemValue) {
-        setItem(itemValue)
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator
+        initialRouteName='Calendario'
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
 
-    }
-
-    function addToItemList(item) {
-        setItemList((prevItemList) => [...prevItemList, item])
-        console.log('inviata stringa', item)
-       
-
-    }
-
-    async function clearItemList() {
-        itemList.length = 0
-        setItemList([])
-        await saveItemList()
-        console.log('pulita lista')
-    }
-
-    async function saveItemList() {
-
-        AsyncStorage.setItem('lista', JSON.stringify(itemList))
-        console.log('salvato')
-    }
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const result = await AsyncStorage.getItem('lista')
-            if (result) {
-                setItemList(JSON.parse(result));
+            if (route.name === 'Progressi') {
+              iconName = 'bar-chart'
+            } else if (route.name === 'Calendario') {
+              iconName = 'calendar'
+            } else if (route.name === 'Abitudini'){
+              iconName = 'check-circle'
+            }else if(route.name === 'Impostazioni'){
+              iconName = 'cog'
             }
 
-        };
+            // You can return any component that you like here!
+            return <Icons name={iconName} size={size} color={color} />;
+          },
+        })}
+        tabBarOptions={{
+          activeTintColor: '#49a6c8',
+          inactiveTintColor: 'gray',
+        }}
+      >
 
-        fetchData();
-    }, []);
+        <Tab.Screen
+          name="Progressi"
+          component={Prog}
+        />
+        <Tab.Screen
+          name="Calendario"
+          component={Calendar}
 
-    return (
-        <View style={styles.schermo}>
-            <View style={styles.view1}>
-                <TextInput style={styles.input} placeholder='inserisci stringa'
-                    onChangeText={(value) => handleTextChange(value)}
-                />
-                <View style={styles.buttonview}>
-                    <Button title='invio'
-                        onPress={() => addToItemList(item)} />
-                </View>
-            </View>
-            <View style={styles.view2}>
-                <FlatList
-                    keyExtractor={(item) => item}
-                    data={itemList}
-                    renderItem={
-                        (itemdata) => (
-                            <Text>{itemdata.item}</Text>
-                        )
-                    }
-                />
-            </View>
-            <View style={styles.view3}>
-                <Button title='vai a altrapagina'
-                    onPress={() => navigation.navigate('Altrapagina')} />
-            </View>
-            <View style={styles.view4}>
-                <Button title='salva'
-                    onPress={saveItemList} />
-                <Button title='clear'
-                    onPress={clearItemList} />
-            </View>
-        </View>
-    )
+        />
+        <Tab.Screen
+          name="Abitudini"
+          component={Habits}
+        />
+        <Tab.Screen
+          name="Impostazioni"
+          component={Settings}
+        />
+
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
 }
 
-const styles = StyleSheet.create({
-    schermo: {
-        flex: 1
-    },
-    view1: {
-        flex: 1,
-        flexDirection: "row",
-    },
-    input: {
-        flex: 8,
-        borderColor: 'black',
-        borderWidth: 3,
-        paddingLeft: 20,
-        marginLeft: 10,
-        marginTop: 10,
-    },
-    buttonview: {
-        flex: 2,
-        alignSelf: 'center',
-        marginHorizontal: 10,
-
-    },
-    view2: {
-        flex: 7,
-
-    },
-    view3: {
-        flex: 1,
-        alignContent:'center'
-    },
-    view4: {
-        flex: 1,
-        paddingHorizontal: 50,
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        marginBottom: 20,
-    }
-
-
-})
-export default home
