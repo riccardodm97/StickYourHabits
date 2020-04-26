@@ -8,9 +8,13 @@ import Settings from './src/scenes/SettingsPage/index';
 import Prog  from './src/scenes/ProgPage/index';
 import Habits  from './src/scenes/HabitsPage/index';
 
+//SE LA PORCO DUE DI APPLICAZIONE NON PARTE : cd android -> gradlew --refresh-dependencies
+
+
 // In attesa di trovare soluzione va tenuto.
 // Questo serve per far si che su iOS venga riconosciuto FontAwesome
-Icons.loadFont()
+
+ Icons.loadFont()
 
 
 const Tab = createBottomTabNavigator();
