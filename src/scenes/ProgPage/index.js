@@ -1,12 +1,14 @@
 import React from 'react'
-import { View, Text} from 'react-native'
+import { View, Text, SafeAreaView} from 'react-native'
 
 
 const Prog = ()=>{
     return (
+      <SafeAreaView>
         <View>
             <Text>PROVA PROG</Text>
         </View>
+      </SafeAreaView>
     );
 }
 
