@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Icons from 'react-native-vector-icons/FontAwesome';
+import Icons from 'react-native-vector-icons/dist/FontAwesome';
 import Calendar from './src/scenes/CalendarPage/index';
 import Settings from './src/scenes/SettingsPage/index';
 import Prog  from './src/scenes/ProgPage/index';
