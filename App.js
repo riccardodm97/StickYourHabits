@@ -8,6 +8,9 @@ import Settings from './src/scenes/SettingsPage/index';
 import Prog  from './src/scenes/ProgPage/index';
 import Habits  from './src/scenes/HabitsPage/index';
 
+// In attesa di trovare soluzione va tenuto.
+// Questo serve per far si che su iOS venga riconosciuto FontAwesome
+Icons.loadFont()
 
 
 const Tab = createBottomTabNavigator();
