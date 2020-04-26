@@ -71,7 +71,7 @@ const Calendar = ({ navigation }) => {
                     />
                 </View>
                 <View style={styles.view3}>
-                    <Button title='vai a altrapagina'
+                    <Button title='vai a abitudini'
                         onPress={() => navigation.navigate('Abitudini')} />
                 </View>
                 <View style={styles.view4}>
