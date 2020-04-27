@@ -11,7 +11,7 @@ import {
   nextMonth,
   prevMonth,
   getDaysArray,
-} from '../calendarHandler';
+} from '../../scenes/CalendarPage/calendarHandler';
 
 // Test per verificare se il numero di giorni del mese corrente è giusto
 test('Il valore di ritorno del numero di giorni del mese corrente dovrebbe essere 30', () => {
