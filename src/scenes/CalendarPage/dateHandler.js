@@ -1,4 +1,5 @@
 import XDate from 'xdate';
+import {TODAY} from '../../utils/generalVar'; 
 /*
  * FUNZIONI
  * Ho un oggetto che rappresenta la data corrente e uso quello come punto di partenza.
@@ -11,7 +12,7 @@ import XDate from 'xdate';
  * stessa cosa precedente
  */
 
-const today = XDate();
+const today = TODAY
 
 export function getNumberOfDays(date) {
   return XDate.getDaysInMonth(date.getFullYear(), date.getMonth());
@@ -38,7 +39,7 @@ export function getCurrentMonthName(date) {
 }
 
 // Funzioni che consentono di variare today per la sessione corrente
-const todayVar = XDate();
+const todayVar = TODAY
 
 export function nextMonth() {
   return todayVar.addMonths(1, true);
