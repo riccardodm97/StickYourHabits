@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 
 function Box (props){
     return (
-        <View style={[styles.box,props.bordercolor]}>
+        <View style={[styles.box,props.specificStyle]}>
             <Text>{props.grade}:  {props.value}</Text>
         </View>
     );
@@ -16,9 +16,9 @@ export default function HabitComponent(props) {
                 <Text style={styles.titletext}>{props.HabitName}</Text>
             </View>
             <View>
-                <Box bordercolor= {{borderColor:'red',borderWidth:2}} grade='LOW' value={props.low} />
-                <Box bordercolor= {{borderColor:'yellow',borderWidth:2}} grade='MEDIUM' value={props.medium} />
-                <Box bordercolor= {{borderColor:'green',borderWidth:2}} grade='HIGH' value={props.high} />
+                <Box specificStyle= {{borderColor:'red'}} grade='LOW' value={props.low} />
+                <Box specificStyle= {{borderColor:'yellow'}} grade='MEDIUM' value={props.medium} />
+                <Box specificStyle= {{borderColor:'green'}} grade='HIGH' value={props.high} />
             </View>
         </View>
     );
@@ -46,6 +46,7 @@ const styles= StyleSheet.create({
         marginBottom:10,
         borderRadius: 10,
         padding:5,
+        borderWidth:2
     },
 
 })
