@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { View, Text, SafeAreaView, StyleSheet } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage';
-
+import { getAllHabits, deleteHabit, updateHabitName } from '../../dataStorage/habitsService'
+import HabitComponent from './HabitComponent'
 
 function OnOpenPage(props) {
   if (props.empty) {
@@ -20,32 +20,39 @@ function OnOpenPage(props) {
   }
 }
 
-// function FlatListHabits(props){
-//   if()
-// }
-
 
 
 const Habits = () => {
 
-  const [habitsList, setHabitsList] = useState([])
+  const [habitsList, setHabitsList] = useState([{id:1, name: 'allenamento', low: '3 flessioni', medium: '5 flessioni' , high: '15 flessioni'},{id:2, name: 'bere acqua', low: '3 bicchieri', medium: '5 bicchieri' , high: '15 bicchieri'}]);
+  const [isEmpty, setIsEmpty] = useState(false);    //da cambiare in true 
+
+  function FlatListHabits() {
+    if (isEmpty) return null;
+    else {
+      return habitsList.map(habit => (
+        <HabitComponent key={habit.id} habitName={habit.name} 
+        low={habit.low} medium={habit.medium} high={habit.high} />
+      ))
+  
+    }
+  }
+  
 
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await AsyncStorage.getItem('lista')
-      if (result) {
-        setItemList(JSON.parse(result));
-      }
+    let result = getAllHabits();
 
-    };
+    if (!result.isEmpty) {
+      setHabitsList(result);
+      setIsEmpty(false);
+    }
 
-    fetchData();
   }, []);
 
   return (
     <SafeAreaView>
       <View>
-        <OnOpenPage empty={false} style={styles.openPage} />
+        <OnOpenPage empty={isEmpty} style={styles.openPage} />
         <FlatListHabits style={styles.flatList} />
       </View>
     </SafeAreaView>
