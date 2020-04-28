@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native'
 function Box (props){
     return (
         <View style={[styles.box,props.specificStyle]}>
-            <Text>{props.grade}:  {props.value}</Text>
+            <Text style={styles.boxtext} >{props.grade}:  {props.value}</Text>
         </View>
     );
 }
@@ -13,7 +13,7 @@ export default function HabitComponent(props) {
     return (
         <View style={styles.card}>
             <View style={styles.title}>
-                <Text style={styles.titletext}>{props.HabitName}</Text>
+                <Text style={styles.titletext}>{props.habitName.toUpperCase()}</Text>
             </View>
             <View>
                 <Box specificStyle= {{borderColor:'red'}} grade='LOW' value={props.low} />
@@ -26,7 +26,7 @@ export default function HabitComponent(props) {
 
 const styles= StyleSheet.create({
     card:{
-        backgroundColor:'grey',
+        backgroundColor:'white',
         borderRadius: 10,
         marginVertical: 10,
         marginHorizontal: 20,
@@ -37,16 +37,19 @@ const styles= StyleSheet.create({
     },
     titletext:{
         fontFamily:'normal',
-        fontSize: 14,
+        fontSize: 20,
         fontWeight:'bold',
-        color:'red',
+        color:'black',
     },
     box:{
         marginHorizontal:10,
         marginBottom:10,
         borderRadius: 10,
         padding:5,
-        borderWidth:2
+        borderWidth:2,
     },
+    boxtext:{
+        fontSize: 15,
+    }
 
 })
