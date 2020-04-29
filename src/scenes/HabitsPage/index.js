@@ -1,70 +1,43 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, SafeAreaView, StyleSheet, FlatList} from 'react-native';
-import {
-  getAllHabits,
-  deleteHabit,
-  updateHabitName,
-} from '../../dataStorage/habitsService';
+import React, { useState, useEffect } from 'react';
+import { View, Text, SafeAreaView, StyleSheet, FlatList, Button, ShadowPropTypesIOS } from 'react-native';
+import { getAllHabits, deleteHabit, updateHabitName } from '../../dataStorage/habitsService';
 import HabitComponent from './HabitComponent';
-import AddHabit from './AddHabitComponent';
+import AddHabitButton from './FloatingButtonComponent.js'
 
-function OnOpenPage(props) {
-  if (props.empty) {
-    return (
-      <View>
-        <Text>
-          Non ci sono ancora abitudini, clicca sul + per aggiungerne una
-        </Text>
-      </View>
-    );
-  } else {
-    return (
-      <View>
-        <Text>Ecco le tue abitudini</Text>
-      </View>
+const Habits = ({ navigation }) => {
+  const [habitsList, setHabitsList] = useState([]);
+  const [isEmpty, setIsEmpty] = useState(true);
+  const [addIsDisabled, setAddIsDisabled] = useState(false);
+
+  function OnOpenText() {
+    if (isEmpty) {
+      return (
+        <Text>NON CI SONO ANCORA ABITUDINI</Text>
+      );
+    }
+    else return (
+      <Text>ECCO LE TUE ABITUDINI</Text>
     );
   }
-}
-
-const Habits = () => {
-  const [habitsList, setHabitsList] = useState([
-    {
-      id: 1,
-      name: 'allenamento',
-      low: '3 flessioni',
-      medium: '5 flessioni',
-      high: '15 flessioni',
-    },
-    {
-      id: 2,
-      name: 'bere acqua',
-      low: '3 bicchieri',
-      medium: '5 bicchieri',
-      high: '15 bicchieri',
-    },
-    {
-      id: 3,
-      name: 'Studiare ML',
-      low: '20 minuti',
-      medium: '50 minuti',
-      high: '90 minuti',
-    },
-  ]);
-  const [isEmpty, setIsEmpty] = useState(false); //da cambiare in true
 
   function FlatListHabits() {
     if (isEmpty) {
       return null;
     } else {
-      return habitsList.map(habit => (
-        <HabitComponent
-          key={habit.id}
-          habitName={habit.name}
-          low={habit.low}
-          medium={habit.medium}
-          high={habit.high}
+      return (
+        <FlatList
+          data={habitsList}
+          renderItem={habit =>
+            <HabitComponent
+              habitName={habit.item.name}
+              low={habit.item.low}
+              medium={habit.item.medium}
+              high={habit.item.high}
+            />
+          }
+          keyExtractor={habit => habit.id.toString()}
         />
-      ));
+      );
     }
   }
 
@@ -77,21 +50,45 @@ const Habits = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (habitsList.length >= 3) {
+      setAddIsDisabled(true)
+    }
+  }, habitsList);
+
   return (
-    <SafeAreaView>
-      <View>
-        <OnOpenPage empty={isEmpty} style={styles.openPage} />
-        <FlatListHabits />
-        <AddHabit style={{marginRight: 30, alignSelf: 'flex-end'}} />
+    <SafeAreaView style={styles.safe}>
+      <View style={styles.schermo}>
+        <View style={styles.viewInitialText} >
+          <OnOpenText />
+        </View>
+        <View style={styles.viewFlatList}>
+          <FlatListHabits />
+        </View>
+        <AddHabitButton disabled={addIsDisabled} navigation={navigation} />
       </View>
-    </SafeAreaView>
+    </SafeAreaView >
   );
 };
 
 const styles = StyleSheet.create({
-  openPage: {
-    flex: 1,
+  safe: {
+    flex: 1
   },
-});
+  schermo: {
+    flex: 1
+  },
+  viewInitialText: {
+    flex: 1,
+    alignSelf: 'center',
+    justifyContent: 'center'
+
+  },
+  viewFlatList: {
+    flex: 14,
+  }
+
+
+})
 
 export default Habits;
