@@ -24,7 +24,17 @@ function OnOpenPage(props) {
 
 const Habits = () => {
 
-  const [habitsList, setHabitsList] = useState([{id:1, name: 'allenamento', low: '3 flessioni', medium: '5 flessioni' , high: '15 flessioni'},{id:2, name: 'bere acqua', low: '3 bicchieri', medium: '5 bicchieri' , high: '15 bicchieri'}]);
+  const [habitsList, setHabitsList] = useState([
+    {
+      id:1, name: 'allenamento', low: '3 flessioni', medium: '5 flessioni' , high: '15 flessioni'
+    },
+    {
+      id:2, name: 'bere acqua', low: '3 bicchieri', medium: '5 bicchieri' , high: '15 bicchieri'
+    },
+    {
+      id:3, name: 'Studiare ML', low: '20 minuti', medium: '50 minuti', high: '90 minuti' 
+    },
+  ]);
   const [isEmpty, setIsEmpty] = useState(false);    //da cambiare in true 
 
   function FlatListHabits() {
