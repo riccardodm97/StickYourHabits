@@ -36,7 +36,7 @@ const styles= StyleSheet.create({
         margin:10,
     },
     titletext:{
-        fontFamily:'normal',
+///        fontFamily:'normal',
         fontSize: 20,
         fontWeight:'bold',
         color:'black',
