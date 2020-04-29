@@ -1,5 +1,5 @@
 import * as React from 'react';
-import BottomNavBar from './src/components/bottomNavBar';
+import Navigation from './src/components/navigation';
 import {INITIAL_ROUTE_NAME} from './src/utils/generalVar';
 
 //SE LA PORCO DUE DI APPLICAZIONE NON PARTE : cd android -> gradlew --refresh-dependencies
@@ -7,7 +7,7 @@ import {INITIAL_ROUTE_NAME} from './src/utils/generalVar';
 
 export default function App() {
   return (
-      <BottomNavBar initialRouteName={INITIAL_ROUTE_NAME}/>   
+      <Navigation initialRouteName={INITIAL_ROUTE_NAME}/>   
   );
 }
 
