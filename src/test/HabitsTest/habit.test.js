@@ -1,40 +1,19 @@
 import {deleteAllHabits, updateHabitName, insertNewHabit, getHabit} from '../../dataStorage/habitsService';
+import {Habit} from '../../dataStorage/models';
 
-const habit1 = {
-  id: '1',
-  name: 'prova1',
-  low: '1',
-  medium: '2',
-  high: '3',
-}
-const habit2 = {
-  id: '2',
-  name: 'prova2',
-  low: '1',
-  medium: '2',
-  high: '3',
-}
-const habit3 = {
-  id: '3',
-  name: 'prova3',
-  low: '1',
-  medium: '2',
-  high: '3',
-}
-const habit4 = {
-  id: '4',
-  name: 'prova4',
-  low: '1',
-  medium: '2',
-  high: '3',
-}
-const habit5 = {
-  id: '5',
-  name: 'prova5',
-  low: '1',
-  medium: '2',
-  high: '3',
-}
+
+const habit1 = new Habit('prova1','1','2','3');
+
+const habit2 = new Habit('prova2','ciao1','ciao2','ciao3');
+
+const habit3 = new Habit('prova3','cane','gatto','palma');
+
+const habit4 = new Habit('prova4','3','2','1');
+
+const habit5 = new Habit('prova5','abc','def','ghi');
+
+
+
 
 beforeAll(() => {
   insertNewHabit(habit1);
@@ -50,4 +29,8 @@ afterAll(() => {
 
 test('habit1 name prova1, risultato atteso prova1', () => {
   expect(getHabit(1).name).toMatch('prova1');
+})
+
+test('habit2: name prova2 , risultato atteso ciao3', () => {
+    expect(getHabit(2).high).toMatch('ciao3');
 })

@@ -7,6 +7,7 @@ import AddHabitButton from './AddButtonComponent.js'
 
 
 const Habits = ({ navigation }) => {
+  
   const [habitsList, setHabitsList] = useState([]);
 
   function OnOpenText() {
