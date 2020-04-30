@@ -4,13 +4,13 @@ import { getAllHabits, deleteHabit, updateHabitName, } from '../../dataStorage/h
 import HabitComponent from './HabitComponent';
 import AddHabitButton from './AddButtonComponent.js'
 
+
+
 const Habits = ({ navigation }) => {
   const [habitsList, setHabitsList] = useState([]);
-  const [isEmpty, setIsEmpty] = useState(true);
-  const [addIsDisabled, setAddIsDisabled] = useState(false);
 
   function OnOpenText() {
-    if (isEmpty) {
+    if (habitsList.length == 0) {
       return (
         <Text>NON CI SONO ANCORA ABITUDINI</Text>
       );
@@ -21,7 +21,7 @@ const Habits = ({ navigation }) => {
   }
 
   function FlatListHabits() {
-    if (isEmpty) {
+    if (habitsList.length == 0) {
       return null;
     } else {
       return (
@@ -41,18 +41,21 @@ const Habits = ({ navigation }) => {
     }
   }
 
-  useEffect(() => {
-    let result = getAllHabits();
-    
-    console.log(result)
+  function fetchdata() {
 
-    if (!result.isEmpty()) {
-      setHabitsList(result);
-      setIsEmpty(false);
-      if (result.length >= 3) {
-        setAddIsDisabled(true)
-      }
-    }
+    let result = getAllHabits();
+    setHabitsList(result);
+    return result;
+
+  }
+
+  useEffect(() => {
+
+    let res = fetchdata();
+    res.addListener(fetchdata);
+
+    return res.removeAllListeners();
+
   }, []);
 
   return (
@@ -64,7 +67,7 @@ const Habits = ({ navigation }) => {
         <View style={styles.viewFlatList}>
           <FlatListHabits />
         </View>
-        <AddHabitButton disabled={addIsDisabled} navigation={navigation} />
+        <AddHabitButton disabled={habitsList.length >= 3} navigation={navigation} />
       </View>
     </SafeAreaView >
   );
