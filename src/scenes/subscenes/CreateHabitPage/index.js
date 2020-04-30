@@ -11,7 +11,7 @@ const CreateHabit = ({navigation}) => {
   const [high, setHigh] = useState('');
 
   function addHabit(){
-      var habit = new Habit(2,name,low,medium,high);
+      var habit = new Habit(name,low,medium,high);
       insertNewHabit(habit);
       console.log(habit)
       navigation.goBack()
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     flexDirection:'row'
   },
   input:{
-    marginLeft:10,
+    margin: 20,
   },
   buttonview:{
     flex: 1,

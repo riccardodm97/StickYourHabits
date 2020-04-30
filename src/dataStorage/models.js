@@ -1,7 +1,9 @@
 
+let habitId = 1;
+
 export class Habit {
-    constructor(id, name, low, medium, high) {
-        this.id = id;
+    constructor(name, low, medium, high) {
+        this.id = habitId++;
         this.name = name;
         this.low = low;
         this.medium = medium;
