@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, TextInput, Button, StyleSheet, FlatList, SafeAreaView } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
+import { deleteAllHabits } from '../../dataStorage/habitsService';
 
 
 
@@ -71,8 +72,8 @@ const Calendar = ({ navigation }) => {
                     />
                 </View>
                 <View style={styles.view3}>
-                    <Button title='vai a abitudini'
-                        onPress={() => navigation.navigate('Abitudini')} />
+                    <Button title='cancella abitudini'
+                        onPress={() => deleteAllHabits()} />
                 </View>
                 <View style={styles.view4}>
                     <Button title='salva'

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, SafeAreaView, StyleSheet, FlatList, Button, ShadowPropTypesIOS } from 'react-native';
-import { getAllHabits, deleteHabit, updateHabitName } from '../../dataStorage/habitsService';
+import { View, Text, SafeAreaView, StyleSheet, FlatList, } from 'react-native';
+import { getAllHabits, deleteHabit, updateHabitName, } from '../../dataStorage/habitsService';
 import HabitComponent from './HabitComponent';
-import AddHabitButton from './FloatingButtonComponent.js'
+import AddHabitButton from './AddButtonComponent.js'
 
 const Habits = ({ navigation }) => {
   const [habitsList, setHabitsList] = useState([]);
@@ -43,18 +43,17 @@ const Habits = ({ navigation }) => {
 
   useEffect(() => {
     let result = getAllHabits();
+    
+    console.log(result)
 
-    if (!result.isEmpty) {
+    if (!result.isEmpty()) {
       setHabitsList(result);
       setIsEmpty(false);
+      if (result.length >= 3) {
+        setAddIsDisabled(true)
+      }
     }
   }, []);
-
-  useEffect(() => {
-    if (habitsList.length >= 3) {
-      setAddIsDisabled(true)
-    }
-  }, habitsList);
 
   return (
     <SafeAreaView style={styles.safe}>
@@ -81,8 +80,7 @@ const styles = StyleSheet.create({
   viewInitialText: {
     flex: 1,
     alignSelf: 'center',
-    justifyContent: 'center'
-
+    justifyContent: 'center',
   },
   viewFlatList: {
     flex: 14,
