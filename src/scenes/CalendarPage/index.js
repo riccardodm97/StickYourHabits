@@ -3,35 +3,41 @@ import { View, Button, Text, StyleSheet, FlatList, SafeAreaView } from 'react-na
 import { deleteAllHabits } from '../../dataStorage/habitsService';
 import * as dateHandler from '../CalendarPage/dateHandler';
 import DayComponent from '../CalendarPage/DayComponent'
-import { TODAY } from '../../utils/generalVar';
+import { TODAY, ITALIAN_NAMES } from '../../utils/generalVar';
 
 const today = TODAY.clone();
 
 
 const Calendar = ({ navigation }) => {
-    const [month, setMonth] = useState(dateHandler.getCurrentMonthName(today));
-    const [currentMonthDayArray, setCurrentMonthDayArray] = useState(dateHandler.dayArray(today));
+    const [month, setMonth] = useState(ITALIAN_NAMES[today.getMonth()]);
+    const [currentMonthDaysArray, setCurrentMonthDaysArray] = useState(dateHandler.dayArray(today));
 
     const nextMonthName = () => {
         const nextMonth = dateHandler.nextMonth(today);
-        const nMName = dateHandler.getCurrentMonthName(nextMonth);
-        setCurrentMonthDayArray(dateHandler.dayArray(nextMonth));
+        const nMName = ITALIAN_NAMES[nextMonth.getMonth()];
+        setCurrentMonthDaysArray(dateHandler.dayArray(nextMonth));
         setMonth(nMName);
 
     }
     const prevMonthName = () => {
         const prevMonth = dateHandler.prevMonth(today);
-        const pMName = dateHandler.getCurrentMonthName(prevMonth);
-        setCurrentMonthDayArray(dateHandler.dayArray(prevMonth));
+        const pMName = ITALIAN_NAMES[prevMonth.getMonth()];
+        setCurrentMonthDaysArray(dateHandler.dayArray(prevMonth));
         setMonth(pMName);
 
     }
+
+    useEffect(() => {
+        setMonth(ITALIAN_NAMES[today.getMonth()]);
+        setCurrentMonthDaysArray(dateHandler.dayArray(today));
+        console.log('a')
+    }, [])
     return (
         <SafeAreaView style={styles.safe}>
             <View style={styles.schermo}>
                 <Text style={styles.monthNameText}> {month} </Text>
                 <View style={styles.calendar}>
-                    {currentMonthDayArray.map((day) => {
+                    {currentMonthDaysArray.map((day) => {
                         return <DayComponent key={day.id} text={day.value} />
                     })}
                 </View>
