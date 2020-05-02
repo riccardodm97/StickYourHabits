@@ -17,20 +17,18 @@ const Calendar = ({ navigation }) => {
         const nMName = ITALIAN_NAMES[nextMonth.getMonth()];
         setCurrentMonthDaysArray(dateHandler.dayArray(nextMonth));
         setMonth(nMName);
-
     }
+
     const prevMonthName = () => {
         const prevMonth = dateHandler.prevMonth(today);
         const pMName = ITALIAN_NAMES[prevMonth.getMonth()];
         setCurrentMonthDaysArray(dateHandler.dayArray(prevMonth));
         setMonth(pMName);
-
     }
 
     useEffect(() => {
         setMonth(ITALIAN_NAMES[today.getMonth()]);
         setCurrentMonthDaysArray(dateHandler.dayArray(today));
-        console.log('a')
     }, [])
     return (
         <SafeAreaView style={styles.safe}>
