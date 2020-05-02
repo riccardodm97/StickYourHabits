@@ -10,12 +10,14 @@ const today = TODAY.clone();
 
 const Calendar = ({ navigation }) => {
     const [month, setMonth] = useState(ITALIAN_NAMES[today.getMonth()]);
+    const [year, setYear] = useState(today.getFullYear());
     const [currentMonthDaysArray, setCurrentMonthDaysArray] = useState(dateHandler.dayArray(today));
 
     const nextMonthName = () => {
         const nextMonth = dateHandler.nextMonth(today);
         const nMName = ITALIAN_NAMES[nextMonth.getMonth()];
         setCurrentMonthDaysArray(dateHandler.dayArray(nextMonth));
+        setYear(nextMonth.getFullYear())
         setMonth(nMName);
     }
 
@@ -23,17 +25,19 @@ const Calendar = ({ navigation }) => {
         const prevMonth = dateHandler.prevMonth(today);
         const pMName = ITALIAN_NAMES[prevMonth.getMonth()];
         setCurrentMonthDaysArray(dateHandler.dayArray(prevMonth));
+        setYear(prevMonth.getFullYear())
         setMonth(pMName);
     }
 
     useEffect(() => {
         setMonth(ITALIAN_NAMES[today.getMonth()]);
+        setYear(today.getFullYear());
         setCurrentMonthDaysArray(dateHandler.dayArray(today));
     }, [])
     return (
         <SafeAreaView style={styles.safe}>
             <View style={styles.schermo}>
-                <Text style={styles.monthNameText}> {month} </Text>
+                <Text style={styles.monthNameText}> {month} {year} </Text>
                 <View style={styles.calendar}>
                     {currentMonthDaysArray.map((day) => {
                         return <DayComponent key={day.id} text={day.value} id={day.id}/>
@@ -55,7 +59,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     schermo: {
-        flex: 1
+        flex: 1,
     },
     calendar: {
         flexDirection: 'row',
@@ -67,7 +71,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 30,
         marginVertical: 30,
-        color: 'blue'
     },
     buttons: {
         position: 'absolute',
