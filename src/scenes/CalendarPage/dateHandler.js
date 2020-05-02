@@ -48,14 +48,13 @@ export function prevMonth(date) {
 }
 
 export function getDayID(date) {
-  const stringId = date.toString('yyyyMM');
-  return parseInt(stringId, 10);
+  return date.toString('yyyyMM');
 }
 
 export function dayArray(date) {
   const days = [];
   for(let i = 1; i <= getNumberOfDays(date); i++) {
-    const day = {id: (getDayID(date)+i), value: i}
+    const day = {id: (getDayID(date).concat(i.toString())), value: i}
     days.push(day);
   }
   
