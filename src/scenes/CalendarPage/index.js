@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Button, Text, StyleSheet, FlatList, SafeAreaView } from 'react-native'
+import { View, Button, Text, StyleSheet, SafeAreaView } from 'react-native'
 import { deleteAllHabits } from '../../dataStorage/habitsService';
 import * as dateHandler from '../CalendarPage/dateHandler';
 import DayComponent from '../CalendarPage/DayComponent'
@@ -9,6 +9,7 @@ const today = TODAY.clone();
 
 
 const Calendar = ({ navigation }) => {
+    
     const [month, setMonth] = useState(ITALIAN_NAMES[today.getMonth()]);
     const [currentMonthDaysArray, setCurrentMonthDaysArray] = useState(dateHandler.dayArray(today));
 
