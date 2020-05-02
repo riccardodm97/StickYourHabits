@@ -9,11 +9,9 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
  */
 
 //function to handle click on DayComponent
-clickHandler = (id) => {
-
+const clickHandler = (id) => {
   console.log(id);
-
-};
+}
 
 const DayComponent = props => {
   return (
@@ -35,7 +33,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#49a6c8',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 8,
+    marginHorizontal: 16,
+    marginVertical: 10,
     borderColor: 'black',
     borderWidth: 1
   },
