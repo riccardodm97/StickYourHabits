@@ -3,6 +3,7 @@ import { View, Text, SafeAreaView, StyleSheet, FlatList, } from 'react-native';
 import { getAllHabits, deleteHabit, updateHabitName, } from '../../dataStorage/habitsService';
 import HabitComponent from './HabitComponent';
 import AddHabitButton from './AddButtonComponent.js'
+import realm from 'realm'
 
 
 
