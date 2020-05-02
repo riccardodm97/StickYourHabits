@@ -36,7 +36,7 @@ const Calendar = ({ navigation }) => {
                 <Text style={styles.monthNameText}> {month} </Text>
                 <View style={styles.calendar}>
                     {currentMonthDaysArray.map((day) => {
-                        return <DayComponent key={day.id} text={day.value} />
+                        return <DayComponent key={day.id} text={day.value}  onPress={() => console.log(day.id)}/>
                     })}
                 </View>
                 <View style={styles.buttons}>
