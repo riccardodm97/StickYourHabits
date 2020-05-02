@@ -10,28 +10,20 @@ const today = TODAY.clone();
 
 const Calendar = ({ navigation }) => {
     const [month, setMonth] = useState(dateHandler.getCurrentMonthName(today));
-
-    const dayRender = (date) => {
-        const days = [];
-        for (let i = 1; i <= dateHandler.getNumberOfDays(date); i++) {
-            days.push(
-                <DayComponent text={i.toString()} />
-            )
-        }
-        console.log('RENDERING')
-        return days;
-    }
+    const [currentMonthDayArray, setCurrentMonthDayArray] = useState(dateHandler.dayArray(today));
 
     const nextMonthName = () => {
         const nextMonth = dateHandler.nextMonth(today);
         const nMName = dateHandler.getCurrentMonthName(nextMonth);
+        setCurrentMonthDayArray(dateHandler.dayArray(nextMonth));
         setMonth(nMName);
 
     }
     const prevMonthName = () => {
-        const nextMonth = dateHandler.prevMonth(today);
-        const nMName = dateHandler.getCurrentMonthName(nextMonth);
-        setMonth(nMName);
+        const prevMonth = dateHandler.prevMonth(today);
+        const pMName = dateHandler.getCurrentMonthName(prevMonth);
+        setCurrentMonthDayArray(dateHandler.dayArray(prevMonth));
+        setMonth(pMName);
 
     }
     return (
@@ -39,11 +31,15 @@ const Calendar = ({ navigation }) => {
             <View style={styles.schermo}>
                 <Text style={styles.monthNameText}> {month} </Text>
                 <View style={styles.calendar}>
-                    {dayRender(today)}
+                    {currentMonthDayArray.map((day) => {
+                        return <DayComponent key={day.id} text={day.value} />
+                    })}
                 </View>
-                <Button title="+1" onPress={nextMonthName} />
-                <Button title="-1" onPress={prevMonthName} />
-                <Button title="Elimina Habit" onPress={deleteAllHabits} />
+                <View style={styles.buttons}>
+                    <Button title="+1" onPress={nextMonthName} />
+                    <Button title="Elimina Habit" onPress={deleteAllHabits} />
+                    <Button title="-1" onPress={prevMonthName} />
+                </View>
             </View>
         </SafeAreaView>
     )
@@ -66,6 +62,12 @@ const styles = StyleSheet.create({
         fontSize: 30,
         marginVertical: 30,
         color: 'blue'
+    },
+    buttons: {
+        position: 'absolute',
+        bottom: 30,
+        flexDirection: 'row',
+        alignSelf: 'center'
     }
 })
 export default Calendar

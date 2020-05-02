@@ -13,7 +13,7 @@ const DayComponent = props => {
     <View>
       <TouchableOpacity>
         <View style={styles.dayButton}>
-          <Text> {props.text} </Text>
+          <Text style={styles.dayText}> {props.text} </Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -25,10 +25,16 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     borderRadius: 100,
-    backgroundColor: 'pink',
+    backgroundColor: '#49a6c8',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 8
+    margin: 8,
+    borderColor: 'black',
+    borderWidth: 1
+  },
+  dayText: {
+    color: 'white',
+    fontSize: 18
   }
 })
 
