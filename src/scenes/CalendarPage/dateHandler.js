@@ -18,8 +18,8 @@ export function getNumberOfDays(date) {
   return XDate.getDaysInMonth(date.getFullYear(), date.getMonth());
 }
 
-export function getCurrentMonth() {
-  return today.getMonth();
+export function getCurrentMonth(date) {
+  return date.getMonth();
 }
 
 // Queste due funzioni permettono di mantenere today invariato creando
@@ -39,12 +39,15 @@ export function getCurrentMonthName(date) {
 }
 
 // Funzioni che consentono di variare today per la sessione corrente
-const todayVar = TODAY
-
-export function nextMonth() {
-  return todayVar.addMonths(1, true);
+export function nextMonth(date) {
+  return date.addMonths(1, true);
 }
 
-export function prevMonth() {
-  return todayVar.addMonths(-1, true);
+export function prevMonth(date) {
+  return date.addMonths(-1, true);
+}
+
+export function getDayID(date) {
+  const stringId = date.toString('yyyyMMdd');
+  return parseInt(stringId, 10);
 }

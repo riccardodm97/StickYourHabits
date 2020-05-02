@@ -1,132 +1,71 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, TextInput, Button, StyleSheet, FlatList, SafeAreaView } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage';
+import { View, Button, Text, StyleSheet, FlatList, SafeAreaView } from 'react-native'
 import { deleteAllHabits } from '../../dataStorage/habitsService';
+import * as dateHandler from '../CalendarPage/dateHandler';
+import DayComponent from '../CalendarPage/DayComponent'
+import { TODAY } from '../../utils/generalVar';
 
+const today = TODAY.clone();
 
 
 const Calendar = ({ navigation }) => {
+    const [month, setMonth] = useState(dateHandler.getCurrentMonthName(today));
 
-    const [itemList, setItemList] = useState([])
-    const [item, setItem] = useState('')
-
-
-    function handleTextChange(itemValue) {
-        setItem(itemValue)
-
+    const dayRender = (date) => {
+        const days = [];
+        for (let i = 1; i <= dateHandler.getNumberOfDays(date); i++) {
+            days.push(
+                <DayComponent text={i.toString()} />
+            )
+        }
+        console.log('RENDERING')
+        return days;
     }
 
-    function addToItemList(item) {
-        setItemList((prevItemList) => [...prevItemList, item])
-        console.log('inviata stringa', item)
-
+    const nextMonthName = () => {
+        const nextMonth = dateHandler.nextMonth(today);
+        const nMName = dateHandler.getCurrentMonthName(nextMonth);
+        setMonth(nMName);
 
     }
+    const prevMonthName = () => {
+        const nextMonth = dateHandler.prevMonth(today);
+        const nMName = dateHandler.getCurrentMonthName(nextMonth);
+        setMonth(nMName);
 
-    async function clearItemList() {
-        itemList.length = 0
-        setItemList([])
-        await saveItemList()
-        console.log('pulita lista')
     }
-
-    async function saveItemList() {
-
-        AsyncStorage.setItem('lista', JSON.stringify(itemList))
-        console.log('salvato')
-    }
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const result = await AsyncStorage.getItem('lista')
-            if (result) {
-                setItemList(JSON.parse(result));
-            }
-
-        };
-
-        fetchData();
-    }, []);
-
     return (
         <SafeAreaView style={styles.safe}>
             <View style={styles.schermo}>
-                <View style={styles.view1}>
-                    <TextInput style={styles.input} placeholder='inserisci stringa'
-                        onChangeText={(value) => handleTextChange(value)}
-                    />
-                    <View style={styles.buttonview}>
-                        <Button title='invio'
-                            onPress={() => addToItemList(item)} />
-                    </View>
+                <Text style={styles.monthNameText}> {month} </Text>
+                <View style={styles.calendar}>
+                    {dayRender(today)}
                 </View>
-                <View style={styles.view2}>
-                    <FlatList
-                        keyExtractor={(item) => item}
-                        data={itemList}
-                        renderItem={
-                            (itemdata) => (
-                                <Text>{itemdata.item}</Text>
-                            )
-                        }
-                    />
-                </View>
-                <View style={styles.view3}>
-                    <Button title='cancella abitudini'
-                        onPress={() => deleteAllHabits()} />
-                </View>
-                <View style={styles.view4}>
-                    <Button title='salva'
-                        onPress={saveItemList} />
-                    <Button title='clear'
-                        onPress={clearItemList} />
-                </View>
+                <Button title="+1" onPress={nextMonthName} />
+                <Button title="-1" onPress={prevMonthName} />
+                <Button title="Elimina Habit" onPress={deleteAllHabits} />
             </View>
         </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
-    safe:{
-        flex:1
+    safe: {
+        flex: 1
     },
     schermo: {
         flex: 1
     },
-    view1: {
-        flex: 1,
-        flexDirection: "row",
-    },
-    input: {
-        flex: 8,
-        borderColor: 'black',
-        borderWidth: 3,
-        paddingLeft: 20,
-        marginLeft: 10,
-        marginTop: 10,
-    },
-    buttonview: {
-        flex: 2,
-        alignSelf: 'center',
-        marginHorizontal: 10,
-
-    },
-    view2: {
-        flex: 7,
-
-    },
-    view3: {
-        flex: 1,
-        alignContent: 'center'
-    },
-    view4: {
-        flex: 1,
-        paddingHorizontal: 50,
+    calendar: {
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        marginBottom: 20,
+        flexWrap: 'wrap',
+        justifyContent: 'space-between'
+    },
+    monthNameText: {
+        textAlign: 'center',
+        fontSize: 30,
+        marginVertical: 30,
+        color: 'blue'
     }
-
-
 })
 export default Calendar
