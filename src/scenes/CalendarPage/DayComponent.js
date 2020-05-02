@@ -5,13 +5,20 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
  * Tondo
  * Colore di bordo
  * Colore di riempimento
- * Se toccato naviga verso la pagina Abitudine
+ * Se toccato naviga verso la pagina di quel giorno
  */
+
+//function to handle click on DayComponent
+clickHandler = (id) => {
+
+  console.log(id);
+
+};
 
 const DayComponent = props => {
   return (
     <View>
-      <TouchableOpacity onPress={props.onPress}>
+      <TouchableOpacity onPress={() => clickHandler(props.id)}>
         <View style={styles.dayButton}>
           <Text style={styles.dayText}> {props.text} </Text>
         </View>

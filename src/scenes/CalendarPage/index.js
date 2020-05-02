@@ -36,13 +36,14 @@ const Calendar = ({ navigation }) => {
                 <Text style={styles.monthNameText}> {month} </Text>
                 <View style={styles.calendar}>
                     {currentMonthDaysArray.map((day) => {
-                        return <DayComponent key={day.id} text={day.value}  onPress={() => console.log(day.id)}/>
+                        return <DayComponent key={day.id} text={day.value} id={day.id}/>
                     })}
                 </View>
                 <View style={styles.buttons}>
-                    <Button title="+1" onPress={nextMonthName} />
-                    <Button title="Elimina Habit" onPress={deleteAllHabits} />
                     <Button title="-1" onPress={prevMonthName} />
+                    <Button title="Elimina Habit" onPress={deleteAllHabits} />
+                    <Button title="+1" onPress={nextMonthName} />
+
                 </View>
             </View>
         </SafeAreaView>
