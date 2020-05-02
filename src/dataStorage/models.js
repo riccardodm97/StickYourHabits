@@ -1,5 +1,5 @@
 
-let habitId = 1;
+let habitId = 1;     //da gestire l'id 
 
 export class Habit {
     constructor(name, low, medium, high) {
