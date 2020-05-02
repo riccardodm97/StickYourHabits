@@ -11,7 +11,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 const DayComponent = props => {
   return (
     <View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={props.onPress}>
         <View style={styles.dayButton}>
           <Text style={styles.dayText}> {props.text} </Text>
         </View>
