@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 /* Componente toccabile:
  * Tondo
@@ -10,9 +10,11 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 
 const DayComponent = props => {
   return (
-    <View style={styles.dayButton}>
+    <View>
       <TouchableOpacity>
-        <Text> {props.text} </Text>
+        <View style={styles.dayButton}>
+          <Text> {props.text} </Text>
+        </View>
       </TouchableOpacity>
     </View>
   );
@@ -26,7 +28,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'pink',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 8 
+    margin: 8
   }
 })
 
