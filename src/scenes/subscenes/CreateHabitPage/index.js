@@ -70,7 +70,8 @@ const styles = StyleSheet.create({
   },
   viewGrade: {
     flex: 1,
-    flexDirection:'row'
+    flexDirection:'row',
+    alignItems:'center',
   },
   input:{
     margin: 20,

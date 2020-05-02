@@ -59,7 +59,8 @@ const styles = StyleSheet.create({
     calendar: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'space-between'
+        justifyContent: 'flex-start',
+
     },
     monthNameText: {
         textAlign: 'center',
