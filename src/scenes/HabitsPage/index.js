@@ -55,7 +55,8 @@ const Habits = ({ navigation }) => {
     let res = fetchdata();
     res.addListener(fetchdata);
 
-    return res.removeAllListeners();
+    
+    return () => res.removeAllListeners();
 
   }, []);
 
