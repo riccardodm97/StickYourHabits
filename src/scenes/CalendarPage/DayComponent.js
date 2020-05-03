@@ -9,14 +9,16 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
  */
 
 //function to handle click on DayComponent
-const clickHandler = (id) => {
-  console.log(id);
+const clickHandler = (navigation) => {
+
+  navigation.navigate('Abitudini Del Giorno');
+  console.log('Sto navigando')
 }
 
 const DayComponent = props => {
   return (
     <View>
-      <TouchableOpacity onPress={() => clickHandler(props.id)}>
+      <TouchableOpacity onPress={() => clickHandler(props.navigation)}>
         <View style={styles.dayButton}>
           <Text style={styles.dayText}> {props.text} </Text>
         </View>

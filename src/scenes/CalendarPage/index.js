@@ -41,7 +41,7 @@ const Calendar = ({ navigation }) => {
                 <Text style={styles.monthNameText}> {month} {year} </Text>
                 <View style={styles.calendar}>
                     {currentMonthDaysArray.map((day) => {
-                        return <DayComponent key={day.id} text={day.value} id={day.id}/>
+                        return <DayComponent key={day.id} text={day.value} navigation={navigation}/>
                     })}
                 </View>
                 <View style={styles.buttons}>

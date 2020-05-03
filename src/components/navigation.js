@@ -9,6 +9,7 @@ import Settings from '../scenes/SettingsPage/index';
 import Prog from '../scenes/ProgPage/index';
 import Habits from '../scenes/HabitsPage/index';
 import CreateHabit from '../scenes/subscenes/CreateHabitPage/index'
+import DayHabits from '../scenes/subscenes/DayHabitPage';
 
 
 Icons.loadFont()      //per far si che su iOS venga riconosciuto FontAwesome
@@ -21,6 +22,16 @@ function HabitsStackPage() {
     <HabitsStack.Navigator initialRouteName={"Abitudini"} >
       <HabitsStack.Screen name="Abitudini" component={Habits} />
       <HabitsStack.Screen name="Crea Nuova Abitudine" component={CreateHabit} />
+    </HabitsStack.Navigator>
+  );
+}
+
+
+function CalendarStackPage() {
+  return (
+    <HabitsStack.Navigator initialRouteName={"Calendario"} >
+      <HabitsStack.Screen name="Calendario" component={Calendar} />
+      <HabitsStack.Screen name="Abitudini Del Giorno" component={DayHabits} />
     </HabitsStack.Navigator>
   );
 }
@@ -64,7 +75,7 @@ function BottomNavBar(navBarProps) {
         />
         <Tab.Screen
           name="Calendario"
-          component={Calendar}
+          component={CalendarStackPage}
 
         />
         <Tab.Screen
