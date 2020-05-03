@@ -23,3 +23,6 @@ export const ITALIAN_NAMES = {
     11: 'Dicembre',
 }
 
+// Lunghezza massima stringa per i TextInput
+export const MAX_LENGTH = 200;
+

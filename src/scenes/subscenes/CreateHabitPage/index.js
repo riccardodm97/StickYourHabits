@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, SafeAreaView, Button, StyleSheet,TextInput} from 'react-native';
 import {Habit} from '../../../dataStorage/models';
 import { insertNewHabit } from '../../../dataStorage/habitsService';
+import { MAX_LENGTH } from '../../../utils/generalVar';
 
 const CreateHabit = ({navigation}) => {
 
@@ -25,22 +26,22 @@ const CreateHabit = ({navigation}) => {
       </View>
       <View style={styles.inputHabit}>
         <View style={styles.viewName}>
-          <TextInput style={styles.input} placeholder="inserisci il nome dell'abitudine"
+          <TextInput style={styles.input} maxLength={MAX_LENGTH} placeholder="inserisci il nome dell'abitudine"
             onChangeText={(value) => setName(value)} />
         </View>
         <View style={styles.viewGrade}>
           <Text>LOW: </Text>
-          <TextInput style={styles.input} placeholder="valore + unità di misura"
+          <TextInput style={styles.input} maxLength={MAX_LENGTH} placeholder="valore + unità di misura"
             onChangeText={(value) => setLow(value)} />
         </View>
         <View style={styles.viewGrade}>
           <Text>MEDIUM: </Text>
-          <TextInput style={styles.input} placeholder="valore + unità di misura"
+          <TextInput style={styles.input}  maxLength={MAX_LENGTH} placeholder="valore + unità di misura"
             onChangeText={(value) => setMedium(value)} />
         </View>
         <View style={styles.viewGrade}>
           <Text>HIGH: </Text>
-          <TextInput style={styles.input} placeholder="valore + unità di misura"
+          <TextInput style={styles.input}  maxLength={MAX_LENGTH} placeholder="valore + unità di misura"
             onChangeText={(value) => setHigh(value)} />
         </View>
       </View>
