@@ -36,7 +36,7 @@ const styles= StyleSheet.create({
         margin:10,
     },
     titletext:{
-        fontFamily:'normal',
+        //fontFamily:'normal', Ogni volta mi dà problemi. Per ora la commento.
         fontSize: 20,
         fontWeight:'bold',
         color:'black',

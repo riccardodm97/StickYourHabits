@@ -7,7 +7,7 @@ export function insertNewHabit(newHabit) {
             realm.create(HABITS_SCHEMA, newHabit);
         })
     } catch (error) {
-        console.log('error creating', newHabit, error);
+        console.log('error creating', newHabit,':', error);
     }
 }
 
@@ -17,7 +17,7 @@ export function updateHabitName(habitId, newHabitName) {
             realm.create(HABITS_SCHEMA, { id: habitId, name: newHabitName }, true);
         })
     } catch (error) {
-        console.log('error updating', newHabit);
+        console.log('error updating', newHabit,':', error);
     }
 }
 
@@ -28,7 +28,7 @@ export function deleteHabit(habitId) {
             realm.delete(deletingHabits);
         })       
     } catch (error) {
-        console.log('error deleting', habitName);
+        console.log('error deleting', habitName,':', error);
     }
 }
 
@@ -36,7 +36,7 @@ export function getHabit(habitId) {
     try {
         return realm.objectForPrimaryKey(HABITS_SCHEMA, habitId);
     } catch (error) {
-        console.log('error deleting', habitName);
+        console.log('error deleting', habitName,':', error);
     }
 }
 
@@ -44,7 +44,7 @@ export function getAllHabits() {
     try {
         return realm.objects(HABITS_SCHEMA);
     } catch (error) {
-        console.log('error fetching all habits');
+        console.log('error fetching all habits:', error);
     }
 }
 
@@ -56,6 +56,6 @@ export function deleteAllHabits() {
         })
 
     } catch (error) {
-        console.log('error deleting all habits', error);
+        console.log('error deleting all habits:', error);
     }
 }

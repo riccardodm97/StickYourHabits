@@ -6,7 +6,7 @@ export const HabitSchema = {
   name: HABITS_SCHEMA,
   primaryKey: 'id',
   properties: {
-    id: 'int',
+    id: 'string',
     name: 'string',
     low: 'string',
     medium: 'string',
@@ -19,6 +19,8 @@ const databaseOptions = {
   schema: [HabitSchema],
   schemaVersion: 0, //optional , ci serve?
 };
+
+// Realm.deleteFile(databaseOptions);
 
 export default new Realm(databaseOptions);
 
