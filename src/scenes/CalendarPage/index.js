@@ -1,85 +1,54 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, TextInput, Button, StyleSheet, FlatList, SafeAreaView } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage';
+import { View, Button, Text, StyleSheet, SafeAreaView } from 'react-native'
 import { deleteAllHabits } from '../../dataStorage/habitsService';
+import * as dateHandler from '../CalendarPage/dateHandler';
+import DayComponent from '../CalendarPage/DayComponent'
+import { TODAY, ITALIAN_NAMES } from '../../utils/generalVar';
 
+const today = TODAY.clone();
 
 
 const Calendar = ({ navigation }) => {
+    
+    const [month, setMonth] = useState(ITALIAN_NAMES[today.getMonth()]);
+    const [year, setYear] = useState(today.getFullYear());
+    const [currentMonthDaysArray, setCurrentMonthDaysArray] = useState(dateHandler.dayArray(today));
 
-    const [itemList, setItemList] = useState([])
-    const [item, setItem] = useState('')
-
-
-    function handleTextChange(itemValue) {
-        setItem(itemValue)
-
+    const nextMonthName = () => {
+        const nextMonth = dateHandler.nextMonth(today);
+        const nMName = ITALIAN_NAMES[nextMonth.getMonth()];
+        setCurrentMonthDaysArray(dateHandler.dayArray(nextMonth));
+        setYear(nextMonth.getFullYear())
+        setMonth(nMName);
     }
 
-    function addToItemList(item) {
-        setItemList((prevItemList) => [...prevItemList, item])
-        console.log('inviata stringa', item)
-
-
-    }
-
-    async function clearItemList() {
-        itemList.length = 0
-        setItemList([])
-        await saveItemList()
-        console.log('pulita lista')
-    }
-
-    async function saveItemList() {
-
-        AsyncStorage.setItem('lista', JSON.stringify(itemList))
-        console.log('salvato')
+    const prevMonthName = () => {
+        const prevMonth = dateHandler.prevMonth(today);
+        const pMName = ITALIAN_NAMES[prevMonth.getMonth()];
+        setCurrentMonthDaysArray(dateHandler.dayArray(prevMonth));
+        setYear(prevMonth.getFullYear())
+        setMonth(pMName);
     }
 
     useEffect(() => {
-        const fetchData = async () => {
-            const result = await AsyncStorage.getItem('lista')
-            if (result) {
-                setItemList(JSON.parse(result));
-            }
-
-        };
-
-        fetchData();
-    }, []);
-
+        setMonth(ITALIAN_NAMES[today.getMonth()]);
+        setYear(today.getFullYear());
+        setCurrentMonthDaysArray(dateHandler.dayArray(today));
+    }, [])
     return (
         <SafeAreaView style={styles.safe}>
             <View style={styles.schermo}>
-                <View style={styles.view1}>
-                    <TextInput style={styles.input} placeholder='inserisci stringa'
-                        onChangeText={(value) => handleTextChange(value)}
-                    />
-                    <View style={styles.buttonview}>
-                        <Button title='invio'
-                            onPress={() => addToItemList(item)} />
-                    </View>
+                <Text style={styles.monthNameText}> {month} {year} </Text>
+                <View style={styles.calendar}>
+                    {currentMonthDaysArray.map((day) => {
+                        return <DayComponent key={day.id} text={day.value} id={day.id}/>
+                    })}
                 </View>
-                <View style={styles.view2}>
-                    <FlatList
-                        keyExtractor={(item) => item}
-                        data={itemList}
-                        renderItem={
-                            (itemdata) => (
-                                <Text>{itemdata.item}</Text>
-                            )
-                        }
-                    />
-                </View>
-                <View style={styles.view3}>
-                    <Button title='cancella abitudini'
-                        onPress={() => deleteAllHabits()} />
-                </View>
-                <View style={styles.view4}>
-                    <Button title='salva'
-                        onPress={saveItemList} />
-                    <Button title='clear'
-                        onPress={clearItemList} />
+                <View style={styles.buttons}>
+                    <Button title="-1" onPress={prevMonthName} />
+                    <Button title="Elimina Habit" onPress={deleteAllHabits} />
+                    <Button title="+1" onPress={nextMonthName} />
+
                 </View>
             </View>
         </SafeAreaView>
@@ -87,46 +56,28 @@ const Calendar = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
-    safe:{
-        flex:1
-    },
-    schermo: {
+    safe: {
         flex: 1
     },
-    view1: {
+    schermo: {
         flex: 1,
-        flexDirection: "row",
     },
-    input: {
-        flex: 8,
-        borderColor: 'black',
-        borderWidth: 3,
-        paddingLeft: 20,
-        marginLeft: 10,
-        marginTop: 10,
-    },
-    buttonview: {
-        flex: 2,
-        alignSelf: 'center',
-        marginHorizontal: 10,
-
-    },
-    view2: {
-        flex: 7,
-
-    },
-    view3: {
-        flex: 1,
-        alignContent: 'center'
-    },
-    view4: {
-        flex: 1,
-        paddingHorizontal: 50,
+    calendar: {
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        marginBottom: 20,
+        flexWrap: 'wrap',
+        justifyContent: 'flex-start',
+
+    },
+    monthNameText: {
+        textAlign: 'center',
+        fontSize: 30,
+        marginVertical: 30,
+    },
+    buttons: {
+        position: 'absolute',
+        bottom: 30,
+        flexDirection: 'row',
+        alignSelf: 'center'
     }
-
-
 })
 export default Calendar
