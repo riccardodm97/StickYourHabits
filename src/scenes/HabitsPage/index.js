@@ -55,10 +55,6 @@ const Habits = ({ navigation }) => {
     let res = fetchdata();
     res.addListener(fetchdata);
 
-<<<<<<< HEAD
-    
-=======
->>>>>>> Calendar
     return () => res.removeAllListeners();
 
   }, []);
