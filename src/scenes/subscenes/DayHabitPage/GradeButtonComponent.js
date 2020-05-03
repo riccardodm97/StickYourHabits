@@ -5,9 +5,9 @@ const GradeButton = (props) => {
 
     return (
         <View style={[styles.gradeButtons, props.colorGrade]}>
-            <TouchableOpacity>
+            <TouchableOpacity disabled={props.disabled} onPress={props.onPress}>
                 <View>
-                    <Text> { props.gradeString } </Text>
+                    <Text style={{fontSize: 25}}> { props.gradeString } </Text>
                 </View>
             </TouchableOpacity>
         </View>
