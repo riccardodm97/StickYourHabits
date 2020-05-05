@@ -20,7 +20,7 @@ const databaseOptions = {
   schemaVersion: 0, //optional , ci serve?
 };
 
-// Realm.deleteFile(databaseOptions);
+Realm.deleteFile(databaseOptions);
 
 export default new Realm(databaseOptions);
 

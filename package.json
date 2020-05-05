@@ -15,6 +15,7 @@
     "@react-navigation/bottom-tabs": "^5.2.8",
     "@react-navigation/native": "^5.1.7",
     "@react-navigation/stack": "^5.2.14",
+    "moment": "^2.25.3",
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-native-calendars": "^1.265.0",
@@ -23,8 +24,7 @@
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.7.0",
     "react-native-vector-icons": "^6.6.0",
-    "realm": "^5.0.3",
-    "xdate": "^0.8.2"
+    "realm": "^5.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
