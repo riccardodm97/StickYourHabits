@@ -1,4 +1,4 @@
-import {deleteAllHabits, updateHabitName, insertNewHabit, getHabit} from '../../dataStorage/habitsService';
+import {deleteAllHabits, updateHabitName, insertNewHabit, getHabitByName} from '../../dataStorage/habitsService';
 import {Habit} from '../../dataStorage/models';
 
 
@@ -27,10 +27,10 @@ afterAll(() => {
   deleteAllHabits();
 });
 
-test('habit1 name prova1, risultato atteso prova1', () => {
-  expect(getHabit(1).name).toMatch('prova1');
+test('habit1 name prova1, risultato atteso 3', () => {
+  expect(getHabitByName('prova1').high).toMatch('3');
 })
 
-test('habit2: name prova2 , risultato atteso ciao3', () => {
-    expect(getHabit(2).high).toMatch('ciao3');
-})
+// test('habit2: name prova2 , risultato atteso ciao3', () => {
+//     expect(getHabit(2).high).toMatch('ciao3');
+// })
