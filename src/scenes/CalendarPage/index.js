@@ -3,51 +3,31 @@ import { View, Button, Text, StyleSheet, SafeAreaView } from 'react-native'
 import { deleteAllHabits } from '../../dataStorage/habitsService';
 import * as dateHandler from '../CalendarPage/dateHandler';
 import DayComponent from '../CalendarPage/DayComponent'
-import { TODAY, ITALIAN_NAMES } from '../../utils/generalVar';
+import { ITALIAN_NAMES } from '../../utils/generalVar';
 
-const today = TODAY.clone();
 
 
 const Calendar = ({ navigation }) => {
     
-    const [month, setMonth] = useState(ITALIAN_NAMES[today.getMonth()]);
-    const [year, setYear] = useState(today.getFullYear());
-    const [currentMonthDaysArray, setCurrentMonthDaysArray] = useState(dateHandler.dayArray(today));
+    const [dateObj, setDateObj] = useState(dateHandler.getCurrentMonthAndYear());
 
-    const nextMonthName = () => {
-        const nextMonth = dateHandler.nextMonth(today);
-        const nMName = ITALIAN_NAMES[nextMonth.getMonth()];
-        setCurrentMonthDaysArray(dateHandler.dayArray(nextMonth));
-        setYear(nextMonth.getFullYear())
-        setMonth(nMName);
+    const clickHandler = (changedDate) => {
+        setDateObj(changedDate);
     }
 
-    const prevMonthName = () => {
-        const prevMonth = dateHandler.prevMonth(today);
-        const pMName = ITALIAN_NAMES[prevMonth.getMonth()];
-        setCurrentMonthDaysArray(dateHandler.dayArray(prevMonth));
-        setYear(prevMonth.getFullYear())
-        setMonth(pMName);
-    }
-
-    useEffect(() => {
-        setMonth(ITALIAN_NAMES[today.getMonth()]);
-        setYear(today.getFullYear());
-        setCurrentMonthDaysArray(dateHandler.dayArray(today));
-    }, [])
     return (
         <SafeAreaView style={styles.safe}>
             <View style={styles.schermo}>
-                <Text style={styles.monthNameText}> {month} {year} </Text>
+                <Text style={styles.monthNameText}> {ITALIAN_NAMES[dateObj.month]} {dateObj.year} </Text>
                 <View style={styles.calendar}>
-                    {currentMonthDaysArray.map((day) => {
-                        return <DayComponent key={day.id} text={day.value} id={day.id}/>
+                    {dateHandler.getDaysArray(dateObj).map((day) => {
+                        return <DayComponent key={day.id} text={day.number} id={day.id}/>
                     })}
                 </View>
                 <View style={styles.buttons}>
-                    <Button title="-1" onPress={prevMonthName} />
+                    <Button title="-1" onPress={() =>clickHandler(dateHandler.getPrevMonth(dateObj))} />
                     <Button title="Elimina Habit" onPress={deleteAllHabits} />
-                    <Button title="+1" onPress={nextMonthName} />
+                    <Button title="+1" onPress={() =>clickHandler(dateHandler.getNextMonth(dateObj))} />
 
                 </View>
             </View>

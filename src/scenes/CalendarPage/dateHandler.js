@@ -7,11 +7,15 @@ function monthAndYearToString(dateObj){
   return dateObj.year + "-" + dateObj.month;
 }
 
-export function getCurrentMonthAndYear(){
-  return { 
-    month: today.format('M'),
-    year : today.format('YYYY'),
+function createDateObj(base) {
+  return {
+    month: base.format('M'),
+    year: base.format('YYYY'),
   }
+}
+
+export function getCurrentMonthAndYear(){
+  return createDateObj(today);
 }
 
 export function getNumberOfDays(dateObj) {
@@ -19,11 +23,32 @@ export function getNumberOfDays(dateObj) {
   return moment(date, "YYYY-MM").daysInMonth();
 }
 
-export function nextMonth(dateObj) {
-  const currentDate = moment(monthAndYearToString(dateObj), "YYYY-MM");
-  const nextMonth = currentDate.add(1, 'month');
-  return {
-    month: nextMonth.format('M'),
-    year:  nextMonth.format('YYYY'),
+export function getNextMonth(dateObj) {
+  const selectedDate = moment(monthAndYearToString(dateObj), "YYYY-MM");
+  const nextMonth = selectedDate.add(1, 'month');
+  return createDateObj(nextMonth);
+}
+
+export function getPrevMonth(dateObj) {
+  const selectedDate = moment(monthAndYearToString(dateObj), "YYYY-MM");
+  const prevMonth = selectedDate.subtract(1, 'month');
+  return createDateObj(prevMonth);
+}
+
+export function getDayId(dateObj, numDay) {
+  return dateObj.year + "-" + dateObj.month + "-" + numDay;
+}
+
+export function getDaysArray(dateObj) {
+  const days = [];
+  for(let i = 1; i <= getNumberOfDays(dateObj); i++) {
+    const day = {
+      id: getDayId(dateObj, i),
+      number: i,
+    }
+
+    days.push(day);
   }
+
+  return days;
 }
