@@ -1,6 +1,5 @@
-import {deleteAllHabits, updateHabitName, insertNewHabit, getHabitByName} from '../../dataStorage/habitsService';
+import {deleteAllHabits, updateHabitName, insertNewHabit, getHabitByName,getAllHabits} from '../../dataStorage/habitsService';
 import {Habit} from '../../dataStorage/models';
-
 
 const habit1 = new Habit('prova1','1','2','3');
 
@@ -27,10 +26,11 @@ afterAll(() => {
   deleteAllHabits();
 });
 
-test('habit1 name prova1, risultato atteso 3', () => {
-  expect(getHabitByName('prova1').high).toMatch('3');
+test("mi aspetto che il valore high dell'habit con name prova1 sia 3", () => {
+  expect(getHabitByName('prova1')[0].high).toMatch('3');
 })
 
-// test('habit2: name prova2 , risultato atteso ciao3', () => {
-//     expect(getHabit(2).high).toMatch('ciao3');
-// })
+test("cambio il nome dell'habit2 da prova2 a prova2b e vedo se lo ha fatto", () => {
+  updateHabitName(getHabitByName('prova2')[0].id,"prova2b")
+  expect(getAllHabits()[1].name).toMatch('prova2b');
+})

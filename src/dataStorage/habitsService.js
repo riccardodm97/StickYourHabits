@@ -42,7 +42,7 @@ export function getHabitById(habitId) {
 
 export function getHabitByName(habitName){
     try {
-        return realm.objects(HABITS_SCHEMA).filtered('name = $0',habitName);
+        return realm.objects(HABITS_SCHEMA).filtered('name == $0',habitName);
     } catch (error) {
         console.log('error fetching', habitName,':', error);
     }
