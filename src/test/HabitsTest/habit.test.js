@@ -1,5 +1,6 @@
 import {deleteAllHabits, updateHabitName, insertNewHabit, getHabitByName,getAllHabits} from '../../dataStorage/habitsService';
 import {Habit} from '../../dataStorage/models';
+import realm from '../../dataStorage/schemas'
 
 const habit1 = new Habit('prova1','1','2','3');
 
@@ -24,6 +25,7 @@ beforeAll(() => {
 
 afterAll(() => {
   deleteAllHabits();
+  realm.close();
 });
 
 test("mi aspetto che il valore high dell'habit con name prova1 sia 3", () => {
