@@ -1,8 +1,7 @@
-import XDate from 'xdate';
+import moment from 'moment';
 
 //Variabili Globali 
-
-export const TODAY = new XDate();
+export const TODAY = moment();
 
 export const MAX_HABITS = 3;
 
