@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, SafeAreaView, StyleSheet, FlatList, } from 'react-native';
-import { getAllHabits, deleteHabit, updateHabitName, } from '../../dataStorage/habitsService';
+import { getAllHabits, deleteHabitById, updateHabitName, } from '../../dataStorage/habitsService';
 import HabitComponent from './HabitComponent';
-import AddHabitButton from './AddButtonComponent.js'
+import AddHabitButton from './AddButtonComponent.js';
+import { MAX_HABITS } from '../../utils/generalVar';   
+
 
 
 
@@ -68,7 +70,7 @@ const Habits = ({ navigation }) => {
         <View style={styles.viewFlatList}>
           <FlatListHabits />
         </View>
-        <AddHabitButton disabled={habitsList.length >= 3} navigation={navigation} />
+        <AddHabitButton disabled={habitsList.length >= MAX_HABITS} navigation={navigation} />
       </View>
     </SafeAreaView >
   );
