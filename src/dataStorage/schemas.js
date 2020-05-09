@@ -22,5 +22,6 @@ const databaseOptions = {
 
 //Realm.deleteFile(databaseOptions);
 
-export default new Realm(databaseOptions);
+export default realm = new Realm(databaseOptions);
+
 
