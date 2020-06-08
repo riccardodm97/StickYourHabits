@@ -9,7 +9,7 @@ import {INITIAL_ROUTE_NAME} from './src/utils/generalVar';
 
 export default function App() {
   return (
-      <Navigation initialRouteName={INITIAL_ROUTE_NAME}/>   
+      <Navigation/>   
   );
 }
 

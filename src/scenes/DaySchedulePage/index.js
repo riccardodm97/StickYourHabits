@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, SafeAreaView} from 'react-native'
 
 
-const Prog = ()=>{
+const DaySchedule = ()=>{
     return (
       <SafeAreaView>
         <View>
@@ -12,4 +12,4 @@ const Prog = ()=>{
     );
 }
 
-export default Prog
+export default DaySchedule
